@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
 struct Student {
     int id;
     string name;
+    string email;
 };
 
 void printStudentInfo(Student *studentToPrint, void(*pf)(Student)){
@@ -13,22 +15,33 @@ void printStudentInfo(Student *studentToPrint, void(*pf)(Student)){
 }
 
 void print_handler(Student s){
-    cout << "Welcome, The information of the sent object is " << endl;
-    cout << s.id << " : " << s.name << endl;
+    cout << s.id << " : " << s.name << s.email << endl;
 }
 
 int main(){
 
-    Student s;
-    s.id = 1;
-    s.name = "Abdo";
+    Student students[20];
 
-    printStudentInfo(&s, &print_handler);
+    // Fill Students Array
+    for(int i=0; i<20; i++){
+        Student s;
+        std::ostringstream studentId;
+        studentId << i;
+        s.id = i;
+        s.name = "Student " + studentId.str();
+        s.email = "Student " + studentId.str() + "@example.com";
+        students[i] = s;
+    }
     
-    // OR:
-    // Create a pointer to the print_handler function and pass it to printStudentInfo
-    //void (*print_handler_ptr) (Student) = print_handler;
-    //printStudentInfo(&s, print_handler_ptr);
+    // Print Studentws Array
+    for(int i=0; i<20; i++){
+        printStudentInfo(&students[i], &print_handler);
+
+        // OR:
+        // Create a pointer to the print_handler function and pass it to printStudentInfo
+        //void (*print_handler_ptr) (Student) = print_handler;
+        //printStudentInfo(&students[i], print_handler_ptr);
+    }
     
     return 0;
 }
