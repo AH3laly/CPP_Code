@@ -162,6 +162,13 @@ void LinkedList::reset(){
         this->head = this->end = this->cursor = this->current = NULL;
 }
 
+void LinkedList::empty(){
+    this->cursorBegin();
+    while(this->getCount()>0){
+        this->remove();
+    }
+}
+
 LinkedList::~LinkedList(){
-    
+    this->empty();
 }

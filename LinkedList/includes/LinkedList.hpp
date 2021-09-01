@@ -78,6 +78,11 @@ struct LinkedList {
          */
         int isEmpty();
 
+        /**
+         * Remove all elements from the List
+         */
+        void empty();
+
     private:
         int count;
         /**

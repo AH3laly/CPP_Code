@@ -126,6 +126,25 @@ void runTests(){
             myLinkedList->cursor->print();
         } while (myLinkedList->next());
     }
+
+    // ############################### Empty the List ##################################
+
+    echo("\nNodes Count before calling myLinkedList->empty: ", 0);
+    echo(intToString(myLinkedList->getCount()),2);
+
+    myLinkedList->empty();
+
+    echo("Nodes Count after calling myLinkedList->empty: ", 0);
+    echo(intToString(myLinkedList->getCount()),2);
+
+    echo("Nodes List after calling myLinkedList->empty: ");
+    if(!myLinkedList->isEmpty()){
+        myLinkedList->cursorBegin();
+        do {
+            myLinkedList->cursor->print();
+        } while (myLinkedList->next());
+    }
+
 }
 
 void echo(string text, int numberOfNewLines){
