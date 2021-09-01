@@ -10,6 +10,7 @@ struct LinkedList {
     public:
         LinkedListNode *cursor, *head, *end, *current;
         LinkedList();
+        ~LinkedList();
 
         /**
          * Push LinkedListNode on the Top

@@ -161,3 +161,7 @@ int LinkedList::isEmpty(){
 void LinkedList::reset(){
         this->head = this->end = this->cursor = this->current = NULL;
 }
+
+LinkedList::~LinkedList(){
+    
+}
