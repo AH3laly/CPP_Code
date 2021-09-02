@@ -1,7 +1,20 @@
 #include<string>
+#include<iostream>
 #include "LinkedList.hpp"
 
 using namespace LinkedListCustomImplementation;
+
+str LinkedList::LinkedListNode::getData(){
+    return this->data;
+}
+
+void LinkedList::LinkedListNode::setData(str data){
+        this->data = data;
+}
+
+void LinkedList::LinkedListNode::print(){
+    std::cout << this->data << std::endl;
+}
 
 LinkedList::LinkedList(){
     this->count = 0;

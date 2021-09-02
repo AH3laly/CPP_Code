@@ -1,12 +1,39 @@
 #include<string>
-#include "LinkedListNode.hpp"
 
 #ifndef __LINKED_LIST_GUARD_H
 #define __LINKED_LIST_GUARD_H
 
+typedef std::string str;
+
 namespace LinkedListCustomImplementation {
 
 class LinkedList {
+
+    private:
+        class LinkedListNode {
+            
+            public:
+                LinkedListNode *next;
+                LinkedListNode *prev;
+                void setData(str);
+                str getData();
+                void print();
+            
+            private:
+                str data;
+        };
+
+        int count;
+        /**
+         * Initialize the List with the first Node
+         */
+        void addFirstNode(LinkedListNode *node);
+
+        /**
+         * Reset everything for a new Empty List
+         */
+        void reset();
+        
     public:
         LinkedListNode *cursor, *head, *end, *current;
         LinkedList();
@@ -82,18 +109,6 @@ class LinkedList {
          * Remove all elements from the List
          */
         void empty();
-
-    private:
-        int count;
-        /**
-         * Initialize the List with the first Node
-         */
-        void addFirstNode(LinkedListNode *node);
-
-        /**
-         * Reset everything for a new Empty List
-         */
-        void reset();
 };
 
 }
