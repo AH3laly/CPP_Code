@@ -7,7 +7,7 @@ typedef std::string str;
 
 namespace LinkedListCustomImplementation {
 
-struct LinkedListNode {
+class LinkedListNode {
     
     public:
         LinkedListNode *next;

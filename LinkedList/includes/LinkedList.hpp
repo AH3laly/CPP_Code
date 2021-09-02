@@ -6,7 +6,7 @@
 
 namespace LinkedListCustomImplementation {
 
-struct LinkedList {
+class LinkedList {
     public:
         LinkedListNode *cursor, *head, *end, *current;
         LinkedList();
