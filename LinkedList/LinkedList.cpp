@@ -2,9 +2,12 @@
 #include <sstream>
 #include <string>
 #include "./includes/LinkedList.hpp"
+#include "./includes/types.hpp"
 
 using namespace std;
 using namespace LinkedListCustomImplementation;
+
+
 
 void runTests();
 void echo(string, int = 1);
@@ -18,7 +21,16 @@ int main(){
 
 void runTests(){
     LinkedList *myLinkedList = new LinkedList;
-    LinkedListNode *temporary;
+    //LinkedListNode *temporary;
+
+    echo("Try to use Depricated method 'insert' ", 1);
+    try{
+        NodeEntry *tempNode = new NodeEntry;
+        *tempNode = "Hello World";
+        myLinkedList->insert(tempNode);
+    }catch(const char* error){
+        echo(error, 2);
+    }
 
 
     echo("Nodes Count: ", 0);
@@ -28,9 +40,9 @@ void runTests(){
     echo("\nFill the List With 5 Nodes.", 2);
     myLinkedList->cursorBegin();
     for(int i = 0; i<5; i++){
-        LinkedListNode *n = new LinkedListNode;
-        n->setData("Data of Node " + intToString(i+1));
-        myLinkedList->insert(n);
+        NodeEntry *e = new NodeEntry;
+        *e = "Hello World";
+        myLinkedList->insertBefore(e);
     }
 
 
@@ -42,7 +54,7 @@ void runTests(){
     if(!myLinkedList->isEmpty()){
         myLinkedList->cursorBegin();
         do {
-            myLinkedList->cursor->print();
+            echo(*myLinkedList->cursor->get());
         } while (myLinkedList->next());
     }
 
@@ -57,34 +69,36 @@ void runTests(){
 
     echo("Insert new Node: Middle Node", 2);
     // Insert New Node at current Cursor Position which is 3
-    LinkedListNode *middleNode = new LinkedListNode;
-    middleNode->setData("Data of Middle Node ");
-    myLinkedList->insert(middleNode);
+    NodeEntry *middleNode = new NodeEntry;
+    *middleNode = "Hello World";
+    myLinkedList->insertAfter(middleNode);
+
+    
 
 
     // ############################### Push New Nodes ##################################
 
     echo("Push new Node to Top: Node 0", 2);
-    LinkedListNode *topNode = new LinkedListNode;
-    topNode->setData("Data of Node 0");
+    NodeEntry *topNode = new NodeEntry;
+    *topNode = "Hello World";
     myLinkedList->pushTop(topNode);
 
 
     echo("Push new Node to Top: Node -1", 2);
-    LinkedListNode *topNode2 = new LinkedListNode;
-    topNode2->setData("Data of Node -1");
+    NodeEntry *topNode2 = new NodeEntry;
+    *topNode2 = "Data of Node -1";
     myLinkedList->pushTop(topNode2);
 
 
     echo("Push new Node to End: Node 6", 2);
-    LinkedListNode *endNode = new LinkedListNode;
-    endNode->setData("Data of Node 6");
+    NodeEntry *endNode = new NodeEntry;
+    *endNode = "Data of Node 6";
     myLinkedList->pushEnd(endNode);
 
 
     echo("Push new Node to End: Node 7", 2);
-    LinkedListNode *endNode2 = new LinkedListNode;
-    endNode2->setData("Data of Node 7");
+    NodeEntry *endNode2 = new NodeEntry;
+    *endNode2 = "Data of Node 7";
     myLinkedList->pushEnd(endNode2);
 
 
@@ -92,7 +106,7 @@ void runTests(){
     if(!myLinkedList->isEmpty()){
         myLinkedList->cursorBegin();
         do {
-            myLinkedList->cursor->print();
+            echo(*myLinkedList->cursor->get());
         } while (myLinkedList->next());
     }
 
@@ -100,17 +114,17 @@ void runTests(){
     // ############################### Pop Nodes ##################################
 
     echo("\nPop Node from Top: Node -1", 2);
-    LinkedListNode *nodeToPop = new LinkedListNode;
+    NodeEntry *nodeToPop = new NodeEntry;
     myLinkedList->popTop(nodeToPop);
     echo("Poped Node:");
-    nodeToPop->print();
+    echo(*nodeToPop);
 
 
     echo("\nPop Node from End: Node 7", 2);
-    LinkedListNode *nodeToPop2 = new LinkedListNode;
+    NodeEntry *nodeToPop2 = new NodeEntry;
     myLinkedList->popEnd(nodeToPop2);
     echo("Poped Node:");
-    nodeToPop2->print();
+    echo(*nodeToPop2);
 
 
     // ############################### Print Whole List Nodes ##################################
@@ -122,7 +136,7 @@ void runTests(){
     if(!myLinkedList->isEmpty()){
         myLinkedList->cursorBegin();
         do {
-            myLinkedList->cursor->print();
+            echo(*myLinkedList->cursor->get());
         } while (myLinkedList->next());
     }
 
@@ -140,7 +154,7 @@ void runTests(){
     if(!myLinkedList->isEmpty()){
         myLinkedList->cursorBegin();
         do {
-            myLinkedList->cursor->print();
+            echo(*myLinkedList->cursor->get());
         } while (myLinkedList->next());
     }
 

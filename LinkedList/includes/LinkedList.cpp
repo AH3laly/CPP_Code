@@ -4,16 +4,20 @@
 
 using namespace LinkedListCustomImplementation;
 
-str LinkedList::LinkedListNode::getData(){
+NodeEntry* LinkedList::LinkedListNode::getData() const{
     return this->data;
 }
 
-void LinkedList::LinkedListNode::setData(str data){
+void LinkedList::LinkedListNode::setData(NodeEntry *data){
         this->data = data;
 }
 
-void LinkedList::LinkedListNode::print(){
+void LinkedList::LinkedListNode::print() const{
     std::cout << this->data << std::endl;
+}
+
+NodeEntry* LinkedList::LinkedListNode::get() const{
+    return this->data;
 }
 
 LinkedList::LinkedList(){
@@ -23,7 +27,14 @@ LinkedList::LinkedList(){
     this->cursor = NULL;
 }
 
-void LinkedList::addFirstNode(LinkedListNode *node){
+LinkedList::LinkedListNode* LinkedList::createLinkedListNode(NodeEntry *nodeEntry){
+    LinkedListNode *node = new LinkedListNode;
+    node->setData(nodeEntry);
+    return node;
+}
+
+void LinkedList::addFirstNode(NodeEntry *nodeEntry){
+    LinkedListNode *node = createLinkedListNode(nodeEntry);
     node->next = NULL;
     node->prev = NULL;
     this->head = this->end = node;
@@ -31,10 +42,11 @@ void LinkedList::addFirstNode(LinkedListNode *node){
     this->count++;
 }
 
-void LinkedList::pushTop(LinkedListNode *node){
+void LinkedList::pushTop(NodeEntry *nodeEntry){
     if(this->count == 0){
-        this->addFirstNode(node);
+        this->addFirstNode(nodeEntry);
     } else {
+        LinkedListNode *node = createLinkedListNode(nodeEntry);
         node->prev = NULL;
         node->next = this->head;
         this->head->prev = node;
@@ -44,10 +56,11 @@ void LinkedList::pushTop(LinkedListNode *node){
     }
 }
 
-void LinkedList::pushEnd(LinkedListNode *node){
+void LinkedList::pushEnd(NodeEntry *nodeEntry){
     if(this->count == 0){
-        this->addFirstNode(node);
+        this->addFirstNode(nodeEntry);
     } else {
+        LinkedListNode *node = createLinkedListNode(nodeEntry);
         this->end->next = node;
         node->prev = this->end;
         node->next = NULL;
@@ -58,28 +71,32 @@ void LinkedList::pushEnd(LinkedListNode *node){
     
 }
 
-void LinkedList::popTop(LinkedListNode* &popped){
+void LinkedList::popTop(NodeEntry* &nodeEntry){
     if(this->count == 0){
-        popped = NULL;
+        nodeEntry = NULL;
         return;
     };
-    popped = this->head;
-    this->head->prev = NULL;
+    nodeEntry = this->head->getData();
+    LinkedListNode *oldHead = this->head;
+    this->head->next->prev = NULL;
     this->head = this->head->next;
     this->cursor = this->head;
     this->count--;
+    delete oldHead;
 }
 
-void LinkedList::popEnd(LinkedListNode* &popped){
+void LinkedList::popEnd(NodeEntry* &nodeEntry){
      if(this->count == 0){
-        popped = NULL;
+        nodeEntry = NULL;
         return;
     };
-    popped = this->end;
+    nodeEntry = this->head->getData();
+    LinkedListNode *oldEnd = this->end;
     this->end->prev->next = NULL;
     this->end = this->end->prev;
     this->cursor = this->end;
     this->count--;
+    delete oldEnd;
 }
     
 bool LinkedList::next(){
@@ -108,20 +125,44 @@ void LinkedList::cursorEnd(){
     this->cursor = this->end;
 }
 
-void LinkedList::insert(LinkedListNode *node){
-    if(this->count == 0){
-        this->addFirstNode(node);
-    } else if(this->cursor->next != NULL && this->cursor->prev != NULL){
-        node->prev = this->cursor;
-        node->next = this->cursor->next;
-        this->cursor->next->prev = node;
-        this->cursor->next = node;
+void LinkedList::insert(NodeEntry *nodeEntry){
+    throw "Exception: The insert method is depricated, please use inserBefore or insertAfter";
+}
+
+void LinkedList::insertBefore(NodeEntry *nodeEntry){
+    if(this->isEmpty()){
+        this->addFirstNode(nodeEntry);
+    } else if(this->cursor == this->head){
+        this->pushTop(nodeEntry);
+    } else if(this->cursor == this->end){
+        this->pushEnd(nodeEntry);
+    } else {
+        // Insert new Node before this->cursor
+        LinkedListNode *node = createLinkedListNode(nodeEntry);
+        node->prev = this->cursor->prev;
+        node->next = this->cursor;
+        this->cursor->prev->next = node;
+        this->cursor->prev = node;
         this->cursor = node;
         this->count++;
-    } else if(this->cursor->next == NULL) {
-        this->pushEnd(node);
-    } else if(this->cursor->prev == NULL){
-        this->pushTop(node);
+    }
+}
+
+void LinkedList::insertAfter(NodeEntry *nodeEntry){
+    if(this->isEmpty()){
+        this->addFirstNode(nodeEntry);
+    } else if(this->cursor == this->head){
+        this->pushTop(nodeEntry);
+    } else if(this->cursor == this->end){
+        this->pushEnd(nodeEntry);
+    } else {
+        // Insert New Node after this->cursor
+        LinkedListNode *node = createLinkedListNode(nodeEntry);
+        node->next = this->cursor->next;
+        node->prev = this->cursor;
+        this->cursor->next->prev = node;
+        this->cursor->next = node;
+        this->count++;
     }
 }
 
@@ -163,11 +204,11 @@ void LinkedList::remove(){
     this->count--;
 }
 
-int LinkedList::getCount(){
+int LinkedList::getCount() const{
     return this->count;
 }
 
-int LinkedList::isEmpty(){
+int LinkedList::isEmpty() const{
     return this->count <= 0;
 }
 

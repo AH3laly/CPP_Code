@@ -1,9 +1,8 @@
 #include<string>
+#include "./types.hpp"
 
 #ifndef __LINKED_LIST_GUARD_H
 #define __LINKED_LIST_GUARD_H
-
-typedef std::string str;
 
 namespace LinkedListCustomImplementation {
 
@@ -13,27 +12,30 @@ class LinkedList {
         class LinkedListNode {
             
             public:
-                LinkedListNode *next;
-                LinkedListNode *prev;
-                void setData(str);
-                str getData();
-                void print();
+                class LinkedListNode *next;
+                class LinkedListNode *prev;
+                void setData(NodeEntry*);
+                NodeEntry* getData() const;
+                void print() const;
+                NodeEntry* get() const;
             
             private:
-                str data;
+                NodeEntry *data;
         };
-
+        
         int count;
         /**
          * Initialize the List with the first Node
          */
-        void addFirstNode(LinkedListNode *node);
+        void addFirstNode(NodeEntry *nodeEntry);
 
         /**
          * Reset everything for a new Empty List
          */
         void reset();
-        
+
+        LinkedListNode* createLinkedListNode(NodeEntry *nodeEntry);
+
     public:
         LinkedListNode *cursor, *head, *end, *current;
         LinkedList();
@@ -43,31 +45,43 @@ class LinkedList {
          * Push LinkedListNode on the Top
          * Note: This operation Resets the cursor
          */
-        void pushTop(LinkedListNode *node);
+        void pushTop(NodeEntry *nodeEntry);
 
         /**
          * Push LinkedListNode at the End
          * Note: This operation Resets the cursor
          */
-        void pushEnd(LinkedListNode *node);
+        void pushEnd(NodeEntry *nodeEntry);
         
         /**
          * POP LinkedListNode from the Top and saves it to popped
          * Note: This operation sets the cursor to Head
          */
-        void popTop(LinkedListNode* &popped);
+        void popTop(NodeEntry* &popped);
 
         /**
          * POP LinkedListNode from the End and saves it to popped
          * Note: This operation sets the cursor to End
          */
-        void popEnd(LinkedListNode* &popped);
+        void popEnd(NodeEntry* &popped);
 
         /**
          * Insert LinkedListNode at the cursor position
          * Note: This operation moves the cursor to inserted Node
          */
-        void insert(LinkedListNode *node);
+        void insert(NodeEntry *nodeEntry);
+
+        /**
+         * Insert LinkedListNode after the cursor position
+         * Note: The cursor position will NOT change
+         */
+        void insertAfter(NodeEntry *nodeEntry);
+
+        /**
+         * Insert LinkedListNode before the cursor position
+         * Note: The cursor position will change to the inserted Node
+         */
+        void insertBefore(NodeEntry *nodeEntry);
 
         /**
          * Remove LinkedListNode at the cursor position
@@ -98,12 +112,12 @@ class LinkedList {
         /**
          * Returns the number of Elements in the list
          */
-        int getCount();
+        int getCount() const;
 
         /**
          * Returns true if the list is empty
          */
-        int isEmpty();
+        int isEmpty() const;
 
         /**
          * Remove all elements from the List
