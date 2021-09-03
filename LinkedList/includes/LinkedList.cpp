@@ -152,9 +152,9 @@ void LinkedList::insertAfter(NodeEntry *nodeEntry){
     if(this->isEmpty()){
         this->addFirstNode(nodeEntry);
     } else if(this->cursor == this->head){
-        this->pushTop(nodeEntry);
-    } else if(this->cursor == this->end){
         this->pushEnd(nodeEntry);
+    } else if(this->cursor == this->end){
+        this->pushTop(nodeEntry);
     } else {
         // Insert New Node after this->cursor
         LinkedListNode *node = createLinkedListNode(nodeEntry);
