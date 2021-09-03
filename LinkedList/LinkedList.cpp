@@ -12,16 +12,19 @@ using namespace LinkedListCustomImplementation;
 void runTests();
 void echo(string, int = 1);
 string intToString(int);
-
+void printNodes(NodeEntry*);
 
 int main(){
     runTests();
     return 0;
 }
 
+void printNodes(NodeEntry *node){
+    cout << *node << endl;
+}
+
 void runTests(){
     LinkedList *myLinkedList = new LinkedList;
-    //LinkedListNode *temporary;
 
     echo("Try to use Depricated method 'insert' ", 1);
     try{
@@ -51,12 +54,7 @@ void runTests(){
 
 
     echo("Nodes List: ");
-    if(!myLinkedList->isEmpty()){
-        myLinkedList->cursorBegin();
-        do {
-            echo(*myLinkedList->cursor->get());
-        } while (myLinkedList->next());
-    }
+    myLinkedList->traverse(&printNodes);
 
 
     echo("\nRemove Node 3 ", 2);
@@ -72,8 +70,6 @@ void runTests(){
     NodeEntry *middleNode = new NodeEntry;
     *middleNode = "Hello World";
     myLinkedList->insertAfter(middleNode);
-
-    
 
 
     // ############################### Push New Nodes ##################################
@@ -103,12 +99,7 @@ void runTests(){
 
 
     echo("Nodes List: ");
-    if(!myLinkedList->isEmpty()){
-        myLinkedList->cursorBegin();
-        do {
-            echo(*myLinkedList->cursor->get());
-        } while (myLinkedList->next());
-    }
+    myLinkedList->traverse(&printNodes);
 
 
     // ############################### Pop Nodes ##################################
@@ -133,12 +124,7 @@ void runTests(){
     echo(intToString(myLinkedList->getCount()),2);
 
     echo("Nodes List: ");
-    if(!myLinkedList->isEmpty()){
-        myLinkedList->cursorBegin();
-        do {
-            echo(*myLinkedList->cursor->get());
-        } while (myLinkedList->next());
-    }
+    myLinkedList->traverse(&printNodes);
 
     // ############################### Empty the List ##################################
 
@@ -151,12 +137,7 @@ void runTests(){
     echo(intToString(myLinkedList->getCount()),2);
 
     echo("Nodes List after calling myLinkedList->empty: ");
-    if(!myLinkedList->isEmpty()){
-        myLinkedList->cursorBegin();
-        do {
-            echo(*myLinkedList->cursor->get());
-        } while (myLinkedList->next());
-    }
+    myLinkedList->traverse(&printNodes);
 
 }
 
