@@ -148,6 +148,15 @@ void LinkedList::insertBefore(NodeEntry *nodeEntry){
     }
 }
 
+void LinkedList::traverse(void(*pt)(NodeEntry *nodeEntry)){
+    if(!this->isEmpty()){
+        this->cursorBegin();
+        do {
+            pt(this->cursor->get());
+        } while (this->next());
+    }
+}
+
 void LinkedList::insertAfter(NodeEntry *nodeEntry){
     if(this->isEmpty()){
         this->addFirstNode(nodeEntry);

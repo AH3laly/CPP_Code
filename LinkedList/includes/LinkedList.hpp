@@ -84,6 +84,11 @@ class LinkedList {
         void insertBefore(NodeEntry *nodeEntry);
 
         /**
+         * Traverse LinkedList and execure the passed function on all Nodes.
+         */
+        void traverse(void(*pt)(NodeEntry *nodeEntry));
+
+        /**
          * Remove LinkedListNode at the cursor position
          * Note: This operation moves the cursor to next Node
          */
