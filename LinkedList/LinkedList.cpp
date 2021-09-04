@@ -1,8 +1,9 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "./includes/LinkedList.hpp"
 #include "./includes/types.hpp"
+#include "./includes/LinkedList.hpp"
+#include "./includes/LinkedList.cpp"
 
 using namespace std;
 using namespace LinkedListCustomImplementation;
@@ -24,7 +25,7 @@ void printNodes(NodeEntry *node){
 }
 
 void runTests(){
-    LinkedList *myLinkedList = new LinkedList;
+    LinkedList<std::string> *myLinkedList = new LinkedList<std::string>;
 
     echo("Try to use Depricated method 'insert' ", 1);
     try{

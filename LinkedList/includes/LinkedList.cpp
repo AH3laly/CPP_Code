@@ -4,36 +4,43 @@
 
 using namespace LinkedListCustomImplementation;
 
-NodeEntry* LinkedList::LinkedListNode::getData() const{
+template <typename NodeEntryType>
+NodeEntryType* LinkedList<NodeEntryType>::LinkedListNode::getData() const{
     return this->data;
 }
 
-void LinkedList::LinkedListNode::setData(NodeEntry *data){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::LinkedListNode::setData(NodeEntryType *data){
         this->data = data;
 }
 
-void LinkedList::LinkedListNode::print() const{
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::LinkedListNode::print() const{
     std::cout << this->data << std::endl;
 }
 
-NodeEntry* LinkedList::LinkedListNode::get() const{
+template <typename NodeEntryType>
+NodeEntryType* LinkedList<NodeEntryType>::LinkedListNode::get() const{
     return this->data;
 }
 
-LinkedList::LinkedList(){
+template <typename NodeEntryType>
+LinkedList<NodeEntryType>::LinkedList(){
     this->count = 0;
     this->head = NULL;
     this->end = NULL;
     this->cursor = NULL;
 }
 
-LinkedList::LinkedListNode* LinkedList::createLinkedListNode(NodeEntry *nodeEntry){
+template <typename NodeEntryType>
+typename LinkedList<NodeEntryType>::LinkedListNode* LinkedList<NodeEntryType>::createLinkedListNode(NodeEntryType *nodeEntry){
     LinkedListNode *node = new LinkedListNode;
     node->setData(nodeEntry);
     return node;
 }
 
-void LinkedList::addFirstNode(NodeEntry *nodeEntry){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::addFirstNode(NodeEntryType *nodeEntry){
     LinkedListNode *node = createLinkedListNode(nodeEntry);
     node->next = NULL;
     node->prev = NULL;
@@ -42,7 +49,8 @@ void LinkedList::addFirstNode(NodeEntry *nodeEntry){
     this->count++;
 }
 
-void LinkedList::pushTop(NodeEntry *nodeEntry){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::pushTop(NodeEntryType *nodeEntry){
     if(this->count == 0){
         this->addFirstNode(nodeEntry);
     } else {
@@ -56,7 +64,8 @@ void LinkedList::pushTop(NodeEntry *nodeEntry){
     }
 }
 
-void LinkedList::pushEnd(NodeEntry *nodeEntry){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::pushEnd(NodeEntryType *nodeEntry){
     if(this->count == 0){
         this->addFirstNode(nodeEntry);
     } else {
@@ -71,7 +80,8 @@ void LinkedList::pushEnd(NodeEntry *nodeEntry){
     
 }
 
-void LinkedList::popTop(NodeEntry* &nodeEntry){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::popTop(NodeEntryType* &nodeEntry){
     if(this->count == 0){
         nodeEntry = NULL;
         return;
@@ -85,7 +95,8 @@ void LinkedList::popTop(NodeEntry* &nodeEntry){
     delete oldHead;
 }
 
-void LinkedList::popEnd(NodeEntry* &nodeEntry){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::popEnd(NodeEntryType* &nodeEntry){
      if(this->count == 0){
         nodeEntry = NULL;
         return;
@@ -98,8 +109,9 @@ void LinkedList::popEnd(NodeEntry* &nodeEntry){
     this->count--;
     delete oldEnd;
 }
-    
-bool LinkedList::next(){
+
+template <typename NodeEntryType>
+bool LinkedList<NodeEntryType>::next(){
     if(this->cursor->next != NULL){
         this->current = this->cursor;
         this->cursor = this->cursor->next;
@@ -108,7 +120,8 @@ bool LinkedList::next(){
     return false;
 }
 
-bool LinkedList::prev(){
+template <typename NodeEntryType>
+bool LinkedList<NodeEntryType>::prev(){
     if(this->cursor != NULL){
         this->current = this->cursor;
         this->cursor = this->cursor->prev;
@@ -117,19 +130,23 @@ bool LinkedList::prev(){
     return false;
 }
 
-void LinkedList::cursorBegin(){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::cursorBegin(){
     this->cursor = this->head;
 }
 
-void LinkedList::cursorEnd(){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::cursorEnd(){
     this->cursor = this->end;
 }
 
-void LinkedList::insert(NodeEntry *nodeEntry){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::insert(NodeEntryType *nodeEntry){
     throw "Exception: The insert method is depricated, please use inserBefore or insertAfter";
 }
 
-void LinkedList::insertBefore(NodeEntry *nodeEntry){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::insertBefore(NodeEntryType *nodeEntry){
     if(this->isEmpty()){
         this->addFirstNode(nodeEntry);
     } else if(this->cursor == this->head){
@@ -148,7 +165,8 @@ void LinkedList::insertBefore(NodeEntry *nodeEntry){
     }
 }
 
-void LinkedList::traverse(void(*pt)(NodeEntry *nodeEntry)){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::traverse(void(*pt)(NodeEntryType *nodeEntry)){
     if(!this->isEmpty()){
         this->cursorBegin();
         do {
@@ -157,7 +175,8 @@ void LinkedList::traverse(void(*pt)(NodeEntry *nodeEntry)){
     }
 }
 
-void LinkedList::insertAfter(NodeEntry *nodeEntry){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::insertAfter(NodeEntryType *nodeEntry){
     if(this->isEmpty()){
         this->addFirstNode(nodeEntry);
     } else if(this->cursor == this->head){
@@ -175,7 +194,8 @@ void LinkedList::insertAfter(NodeEntry *nodeEntry){
     }
 }
 
-void LinkedList::remove(){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::remove(){
     
     if(this->count == 0){
         return;
@@ -213,25 +233,30 @@ void LinkedList::remove(){
     this->count--;
 }
 
-int LinkedList::getCount() const{
+template <typename NodeEntryType>
+int LinkedList<NodeEntryType>::getCount() const{
     return this->count;
 }
 
-int LinkedList::isEmpty() const{
+template <typename NodeEntryType>
+int LinkedList<NodeEntryType>::isEmpty() const{
     return this->count <= 0;
 }
 
-void LinkedList::reset(){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::reset(){
         this->head = this->end = this->cursor = this->current = NULL;
 }
 
-void LinkedList::empty(){
+template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::empty(){
     this->cursorBegin();
     while(this->getCount()>0){
         this->remove();
     }
 }
 
-LinkedList::~LinkedList(){
+template <typename NodeEntryType>
+LinkedList<NodeEntryType>::~LinkedList(){
     this->empty();
 }
