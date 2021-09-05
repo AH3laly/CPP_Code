@@ -15,6 +15,11 @@ void LinkedList<NodeEntryType>::LinkedListNode::setData(NodeEntryType *data){
 }
 
 template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::LinkedListNode::clearData(){
+        delete this->data;
+}
+
+template <typename NodeEntryType>
 void LinkedList<NodeEntryType>::LinkedListNode::print() const{
     std::cout << this->data << std::endl;
 }
@@ -146,6 +151,16 @@ void LinkedList<NodeEntryType>::insert(NodeEntryType *nodeEntry){
 }
 
 template <typename NodeEntryType>
+void LinkedList<NodeEntryType>::update(NodeEntryType *nodeEntry){
+    if(this->cursor == NULL){
+        throw "Exception: Current position is NULL";
+    }
+    // It's Important to clear current NodeEntry from HEAP before pointing to the new NodeEntry
+    this->cursor->clearData();
+    this->cursor->setData(nodeEntry);
+}
+
+template <typename NodeEntryType>
 void LinkedList<NodeEntryType>::insertBefore(NodeEntryType *nodeEntry){
     if(this->isEmpty()){
         this->addFirstNode(nodeEntry);
@@ -202,6 +217,7 @@ void LinkedList<NodeEntryType>::remove(){
 
     } else if(this->cursor->next == NULL && this->cursor->prev == NULL){
         // There is only one Node
+        this->cursor->clearData();
         delete this->cursor;
         this->reset();
 
@@ -211,6 +227,7 @@ void LinkedList<NodeEntryType>::remove(){
         NodePointer newCursor = this->cursor->next;
         this->cursor->prev->next = this->cursor->next;
         this->cursor->next->prev = this->cursor->prev;
+        this->cursor->clearData();
         delete this->cursor;
         this->cursor = newCursor;
 
@@ -218,6 +235,7 @@ void LinkedList<NodeEntryType>::remove(){
         // It's the last Node
         // So, set end to cursor->prev, delete cursor and set cursor to cursor->prev Node
         this->end = cursor->prev;
+        this->cursor->clearData();
         delete this->cursor;
         this->cursor = this->end;
         this->cursor->next = NULL;
@@ -226,6 +244,7 @@ void LinkedList<NodeEntryType>::remove(){
         // It's the first Node
         // So, set head to cursor->next, delete cursor and set cursor to cursor->next Node
         this->head = this->cursor->next;
+        this->cursor->clearData();
         delete this->cursor;
         this->cursor = this->head;
         this->cursor->prev = NULL;

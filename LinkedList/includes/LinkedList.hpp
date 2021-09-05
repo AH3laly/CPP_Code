@@ -14,6 +14,7 @@ class LinkedList {
                 class LinkedListNode *next;
                 class LinkedListNode *prev;
                 void setData(NodeEntryType*);
+                void clearData();
                 NodeEntryType* getData() const;
                 void print() const;
                 NodeEntryType* get() const;
@@ -71,6 +72,12 @@ class LinkedList {
          * Note: This operation moves the cursor to inserted Node
          */
         void insert(NodeEntryType *nodeEntry);
+
+        /**
+         * Update the NodeEntryType of current LinkedListNode,
+         * current LinkedListNode is the node that cursor points to
+         */
+        void update(NodeEntryType *nodeEntry);
 
         /**
          * Insert LinkedListNode after the cursor position

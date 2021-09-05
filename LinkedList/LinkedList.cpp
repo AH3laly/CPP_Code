@@ -126,6 +126,23 @@ void runTests(){
     echo("Nodes List: ");
     myLinkedList->traverse(&printNodes);
 
+    // ############################### Update NodeEntry of all Nodes ##################################
+    
+    NodeEntry *newEntry = new NodeEntry;
+    *newEntry = "The new Update for All Nodes";
+
+    if(!myLinkedList->isEmpty()){
+        myLinkedList->cursorBegin();
+        do {
+           myLinkedList->update(newEntry);
+        } while (myLinkedList->next());
+    }
+
+    // ############################### Print Whole List Nodes ##################################
+
+    echo("\nNodes List: ");
+    myLinkedList->traverse(&printNodes);
+
     // ############################### Empty the List ##################################
 
     echo("\nNodes Count before calling myLinkedList->empty: ", 0);
