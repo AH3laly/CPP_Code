@@ -1,5 +1,4 @@
 #include<string>
-#include "./types.hpp"
 
 #ifndef __LINKED_LIST_GUARD_H
 #define __LINKED_LIST_GUARD_H
@@ -37,7 +36,6 @@ class LinkedList {
         void reset();
 
         NodePointer createLinkedListNode(NodeEntryType *nodeEntry);
-        //void createLinkedListNode(NodeEntryType *nodeEntry);
 
     public:
         NodePointer cursor, head, end, current;
@@ -134,4 +132,5 @@ class LinkedList {
 };
 
 }
+#include "LinkedList.cpp"
 #endif

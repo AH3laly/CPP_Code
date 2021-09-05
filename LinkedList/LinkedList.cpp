@@ -3,7 +3,6 @@
 #include <string>
 #include "./includes/types.hpp"
 #include "./includes/LinkedList.hpp"
-#include "./includes/LinkedList.cpp"
 
 using namespace std;
 using namespace LinkedListCustomImplementation;
