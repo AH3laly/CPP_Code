@@ -6,7 +6,7 @@
 
 namespace LinkedListCustomImplementation {
 
-template <typename NodeEntryType>
+template <class NodeEntryType>
 class LinkedList {
 
     private:
