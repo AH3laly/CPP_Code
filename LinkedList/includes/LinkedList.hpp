@@ -23,6 +23,8 @@ class LinkedList {
                 NodeEntryType *data;
         };
         
+        typedef LinkedListNode* NodePointer;
+
         int count;
         /**
          * Initialize the List with the first Node
@@ -34,11 +36,11 @@ class LinkedList {
          */
         void reset();
 
-        LinkedListNode* createLinkedListNode(NodeEntryType *nodeEntry);
+        NodePointer createLinkedListNode(NodeEntryType *nodeEntry);
         //void createLinkedListNode(NodeEntryType *nodeEntry);
 
     public:
-        LinkedListNode *cursor, *head, *end, *current;
+        NodePointer cursor, head, end, current;
         LinkedList();
         ~LinkedList();
 

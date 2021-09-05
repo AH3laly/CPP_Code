@@ -33,15 +33,15 @@ LinkedList<NodeEntryType>::LinkedList(){
 }
 
 template <typename NodeEntryType>
-typename LinkedList<NodeEntryType>::LinkedListNode* LinkedList<NodeEntryType>::createLinkedListNode(NodeEntryType *nodeEntry){
-    LinkedListNode *node = new LinkedListNode;
+typename LinkedList<NodeEntryType>::NodePointer LinkedList<NodeEntryType>::createLinkedListNode(NodeEntryType *nodeEntry){
+    NodePointer node = new LinkedListNode;
     node->setData(nodeEntry);
     return node;
 }
 
 template <typename NodeEntryType>
 void LinkedList<NodeEntryType>::addFirstNode(NodeEntryType *nodeEntry){
-    LinkedListNode *node = createLinkedListNode(nodeEntry);
+    NodePointer node = createLinkedListNode(nodeEntry);
     node->next = NULL;
     node->prev = NULL;
     this->head = this->end = node;
@@ -54,7 +54,7 @@ void LinkedList<NodeEntryType>::pushTop(NodeEntryType *nodeEntry){
     if(this->count == 0){
         this->addFirstNode(nodeEntry);
     } else {
-        LinkedListNode *node = createLinkedListNode(nodeEntry);
+        NodePointer node = createLinkedListNode(nodeEntry);
         node->prev = NULL;
         node->next = this->head;
         this->head->prev = node;
@@ -69,7 +69,7 @@ void LinkedList<NodeEntryType>::pushEnd(NodeEntryType *nodeEntry){
     if(this->count == 0){
         this->addFirstNode(nodeEntry);
     } else {
-        LinkedListNode *node = createLinkedListNode(nodeEntry);
+        NodePointer node = createLinkedListNode(nodeEntry);
         this->end->next = node;
         node->prev = this->end;
         node->next = NULL;
@@ -87,7 +87,7 @@ void LinkedList<NodeEntryType>::popTop(NodeEntryType* &nodeEntry){
         return;
     };
     nodeEntry = this->head->getData();
-    LinkedListNode *oldHead = this->head;
+    NodePointer oldHead = this->head;
     this->head->next->prev = NULL;
     this->head = this->head->next;
     this->cursor = this->head;
@@ -102,7 +102,7 @@ void LinkedList<NodeEntryType>::popEnd(NodeEntryType* &nodeEntry){
         return;
     };
     nodeEntry = this->head->getData();
-    LinkedListNode *oldEnd = this->end;
+    NodePointer oldEnd = this->end;
     this->end->prev->next = NULL;
     this->end = this->end->prev;
     this->cursor = this->end;
@@ -155,7 +155,7 @@ void LinkedList<NodeEntryType>::insertBefore(NodeEntryType *nodeEntry){
         this->pushEnd(nodeEntry);
     } else {
         // Insert new Node before this->cursor
-        LinkedListNode *node = createLinkedListNode(nodeEntry);
+        NodePointer node = createLinkedListNode(nodeEntry);
         node->prev = this->cursor->prev;
         node->next = this->cursor;
         this->cursor->prev->next = node;
@@ -185,7 +185,7 @@ void LinkedList<NodeEntryType>::insertAfter(NodeEntryType *nodeEntry){
         this->pushTop(nodeEntry);
     } else {
         // Insert New Node after this->cursor
-        LinkedListNode *node = createLinkedListNode(nodeEntry);
+        NodePointer node = createLinkedListNode(nodeEntry);
         node->next = this->cursor->next;
         node->prev = this->cursor;
         this->cursor->next->prev = node;
@@ -208,7 +208,7 @@ void LinkedList<NodeEntryType>::remove(){
     } else if(this->cursor->next != NULL && this->cursor->prev != NULL){
         // The Node has next and prev Nodes,
         // So, link prev to next, delete and set cursor to next Node
-        LinkedListNode *newCursor = this->cursor->next;
+        NodePointer newCursor = this->cursor->next;
         this->cursor->prev->next = this->cursor->next;
         this->cursor->next->prev = this->cursor->prev;
         delete this->cursor;
